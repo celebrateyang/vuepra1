@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+    <script type="text/javascript">
+      function fn(){
+        var num = 10;
+        function infn(){
+          console.log(num);
+        }
+        return infn;
+      }
+      var f = fn();
+      f();
+    </script>
+	</body>
+</html>

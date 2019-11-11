@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+    <script>
+      function Abc(){
+        console.log("哇哈哈");
+        console.log(this);
+      }
+      //1,call可以调用函数
+      Abc.call();//此时函数Abc内部this指向window
+      //2,改变函数内部this指向
+      var obj = {
+        name: 'andy'
+      };
+      Abc.call(obj);//此时函数Abc内部this指向obj
+    </script>
+	</body>
+</html>

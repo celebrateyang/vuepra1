@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <script>
+    /* 构造函数模拟类*/
+    function Abc(uname){
+      console.log("====");
+      this.uname = uname;//实例成员
+      this.sing = function(){//缺点是,每new一个实例对象都会去开辟一个sing函数的内存空间
+        console.log("sing");
+      }
+    }
+    /* 构造函数和new结合起来才有意义*/
+    var a = new Abc("sfe");
+    var b = new Abc("miao");
+    a.sing();
+    console.log(a.uname)
+    console.log(Abc.uname)//不能访问实例成员,这会打印出undefined
+    Abc.sex = '男';//静态成员,在构造函数本身上添加的成员
+    //静态成员只能通过构造函数来访问,不能通过实例访问
+    console.log(Abc.sex);//可以
+    console.log(a.sex);//不可以,undefined,静态成员不可以通过实例访问
+    console.log("a.uname: " + a.uname);
+    console.log(a.sing === b.sing);//false,说明sing函数开辟了不同的内存空间
+    /* prototype可以解决上面问题，给相同的构造函数开辟同一内存空间*/
+    /* 每一个构造含税都有一个prototype属性，这个prototype是一个对象，这个对象的所有属性和方法都会被构造函数所拥有*/
+    Abc.prototype.dance = function(){
+      console.log("dance!");
+    }
+    a.dance()
+    b.dance()
+    /* 疑问，1.a身上没有dance方法，为什么可以调用dacne?答：因为调用了prototype的dance方法
+    2.为什么可以直接访问prototype的dance方法？答：因为每个实例对像身上自动加了__ptoto__属性，它指向构造函数的prototype属性
+    3.那么实例对象方法的调用规则是什么？答：a.先寻找实例对象上的dance方法，有就执行b.如果没有，因为__proto__的存在，就去构造
+    函数的prototype寻找该dance方法*/
+    console.log("对象的__proto__和构造函数的prototype是否同一个对象？=>"+(a.__proto__ === Abc.prototype));
+    /* 注意对象的__proto__并不能直接使用*/
+    console.log("before use __proto__:");
+    console.log(a.__proto__);
+    a.__proto__ = 'bb';//无效
+    console.log("after use __proto__:");
+    console.log(a.__proto__);
+  </script>
+</body>
+</html>

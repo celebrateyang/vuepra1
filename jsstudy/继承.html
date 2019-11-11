@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+    <script>
+      function Father(uname,age){
+        this.uname = uname;
+        this.age = age;
+      }
+      Father.prototype.money = function(){
+        console.log("earn monye 1000");
+      }
+      function Son(uname,age,score){//son要想继承Father,需要分别继承属性和方法
+        /*用call方法完成了继承Father的属性。这里改变了Father构造函数内this的指向
+        使它指向Son的实例对象得以实现*/
+        Father.call(this,uname,age);
+        this.score = score;
+        /* 通过以下方式实现方法的继承,分析过程:new Father的一个实例对象，这个实例对象会
+        指向Father的protoype对象，从而拥有money方法。所以Son.prototype也就有了该方法
+        所以以后Son的实例对象就会有此方法，实现了继承。这样给Son的prototype添加方法
+        就不会影响Father的prototype，只是影响Father实例的prototype，所以别的son继承Father，就
+        不会受到此son的影响,
+        这就实现了方法的继承*/
+        Son.prototype = new Father();
+        /* 需要再将constructor指回原来的Son的构造函数*/
+        Son.prototype.constructor = Son;
+      }
+      Son.prototype.exam = function(){
+        console.log("exam");
+      }
+      var son = new Son('Miao',12,100);
+      console.log(son);
+      son.exam()
+    </script>
+	</body>
+</html>

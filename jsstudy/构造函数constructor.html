@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+    <script>
+      /* 构造函数*/
+      function Abc(uname){
+        this.uname = uname;
+      }
+      var a = new Abc("sfe");
+      console.log(Abc.prototype);
+      console.log(a.__proto__);
+      console.log(Abc.prototype.constructor);
+      console.log(a.__proto__.constructor);
+      /*通过以上输出可以看出这两个constructor都是指向Abc构造函数本身*/
+
+      // 以下给构造函数的prototype添加方法,不会有什么问题,但是方法一旦多的话会显得太乱
+      Abc.prototype.dance = function(){
+        console.log("dance");
+      }
+      Abc.prototype.sing = function(){
+        console.log("sing");
+      }
+      a.sing();
+      a.dance();
+      //以下通过给prototype赋值对象的方案添加方法,有个坏处,就是会覆盖prototype的原先指向的
+      //对象,这样prototype就没有constructor方法了.所以要手动给它加上.constructor方法的作用
+      //就是记录对象引用哪一个构造函数,说明该对象是由哪个构造函数创建出来的.
+      Abc.prototype = {
+        constructor:Abc,
+        drink: function(){
+          console.log("drink");
+        },
+        sleep: function(){
+          console.log("sleep");
+        }
+      }
+       c = new Abc();
+      console.log(Abc.prototype.constructor);
+      console.log(c.__proto__.constructor);
+      c.sleep();
+      console.log(Abc.prototype.__proto__ === Object.prototype);//true
+      console.log(Object.prototype.__proto__);//null
+    </script>
+	</body>
+</html>
