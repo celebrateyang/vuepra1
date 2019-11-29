@@ -1,0 +1,48 @@
+body {
+  max-width: 540px;
+  min-width: 320px;
+  margin: 0;
+  font: 400 16px/1.5 PingFangSC-regular,Tahoma,"Lucida Grande",Verdana,"Microsoft Yahei",STXihei,hei;
+  color: #000;
+  background: #fafafc;
+  overflow-x: hidden;/*不出现水平滚动条*/
+  -webkit-tap-highlight-color: transparent;/*防止点击元素出现高亮*/
+}
+.search-index{
+  display: flex;
+  /* 固定定位和父亲没有关系 它以屏幕为准 */
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);/*盒子自身宽度的一半*/
+  --webkit-transform: translateX(-50%);/*兼容老浏览器*/
+  width: 100%;/*固定盒子需要给出宽度*/
+  min-width: 320px;
+  max-width: 540px;
+  height: 44px;
+  background-color: pink;
+  line-height: 1;
+  align-items: center;
+}
+/* a是行内元素,没有大小 */
+.search{
+  flex: 1;
+}
+.user{
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  width: 44px;
+  height: 44px;
+  background-color: purple;
+  
+}
+.user::before{
+  content: "\0020";
+  width: 22px;
+  height: 22px;
+  background: url(../images/spite.png) no-repeat 1px -36px;
+  background-size: 21px auto;
+  margin: 3px auto 0;
+  display: block;
+}
